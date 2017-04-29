@@ -35,6 +35,7 @@ def GenerateScript():
 			execCommand = "HandBrakeCLI -Z \"Very Fast 1080p30\" -i \"" + filename + "\" -o \"" + output_file + "\""
 			print(execCommand, file=fp1)
 	fp1.close()
+	os.system("chmod u+x rconvert.sh")
 	sys.exit(0)
 
 parser = argparse.ArgumentParser()
