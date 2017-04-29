@@ -5,7 +5,6 @@
 import argparse
 import os
 import sys
-from subprocess import call
 
 parser = argparse.ArgumentParser()
 
@@ -34,7 +33,6 @@ try:
 	
 	if any(x in input_file_extension for x in supported_extensions):
 		full_command = "HandBrakeCLI -Z \"Very Fast 1080p30\" -i \"" + input_file + "\" -o \"" + output_file + "\""
-		print(full_command)
 		
 		os.system(full_command)
 	else:
