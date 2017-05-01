@@ -12,12 +12,15 @@ class CRoku:
 		self.SupportedExtensions = _supported_extensions
 
 	def ConvertFile(self, input_file):
+		# Make sure the file exists.
 		if not os.path.isfile(input_file):
 			raise ValueError(input_file + " not found.")
 
+		# Split out the pieces of the input file name, and build the output file name.
 		input_file_name, input_file_extension = os.path.splitext(input_file)
 		output_file = input_file_name + ".mp4"
 
+		# Is the input file supported as a conversion target?
 		if any(x in input_file_extension for x in self.SupportedExtensions):
 			full_command = self.ConverterName + " " + self.ConverterPreset + " -i \"" + input_file + "\" -o \"" + output_file + "\""
 			
@@ -26,9 +29,13 @@ class CRoku:
 			raise ValueError(input_file + " is not in a format that can be converted.")	
 
 	def GenerateScript(self):
+		# Open the script file for writing, and write out the crunch-bang line for bash
 		fp1 = open('rconvert.sh', 'w')
 		print("#!/bin/bash", file=fp1)
 		print("", file=fp1)
+
+		# For each supported extension, find matching files, then write out a conversion line in this format:
+		# HandBrakeCLI -Z "Very Fast 1080p30" -i "<inputfile>" -o "<outputfile>"
 		for extension in self.SupportedExtensions:
 			filenames = glob.glob('*' + extension)
 			for filename in filenames:
