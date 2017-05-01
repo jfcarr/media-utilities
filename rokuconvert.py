@@ -7,7 +7,7 @@ import sys
 
 _converterName = 'HandBrakeCLI'
 _converterPreset = ' -Z "Very Fast 1080p30" '
-_supported_extensions = ['.avi','.mkv','.webm','.wmv']
+_supported_extensions = ['.avi','.mkv','.mov','.webm','.wmv']
 
 def ConvertFile(input_file):
 	if not os.path.isfile(input_file):
