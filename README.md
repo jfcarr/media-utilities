@@ -2,7 +2,13 @@
 
 ## Description
 
-The only consistently supported file format (for video files on flash drives) on the Roku 3+ is .mp4.  This script provides a couple of quick ways to convert various video files to .mp4 format.  (You'll need to install `Python 3` and the latest version of [Handbrake](https://handbrake.fr/) before using it.  This also assumes you're using Linux, as it relies on `chmod`.
+The only consistently supported file format (for video files on flash drives) on the Roku 3+ is .mp4.  This script provides a couple of quick ways to convert various video files to .mp4 format.  This assumes you're using Linux, as it relies on `chmod`.
+
+## Requirements
+
+* Python 3
+* arparse package for Python 3 (`pip3 install argparse`)
+* Latest version of [Handbrake](https://handbrake.fr/)
 
 ## Usage
 
