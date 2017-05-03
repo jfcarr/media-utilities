@@ -11,7 +11,7 @@ class CRoku:
 		self.ConverterPreset = _converterPreset
 		self.SupportedExtensions = _supported_extensions
 
-	def ConvertFile(self, input_file):
+	def ConvertFile(self, input_file, info_only):
 		# Make sure the file exists.
 		if not os.path.isfile(input_file):
 			raise ValueError(input_file + " not found.")
@@ -21,8 +21,11 @@ class CRoku:
 		output_file = input_file_name + ".mp4"
 
 		# Is the input file supported as a conversion target?
-		if any(x in input_file_extension for x in self.SupportedExtensions):
-			full_command = self.ConverterName + " " + self.ConverterPreset + " -i \"" + input_file + "\" -o \"" + output_file + "\""
+		if any(x in input_file_extension for x in self.SupportedExtensions) or info_only:
+			if info_only:
+				full_command = self.ConverterName + " " + self.ConverterPreset + " --scan -i \"" + input_file + "\""
+			else:
+				full_command = self.ConverterName + " " + self.ConverterPreset + " -i \"" + input_file + "\" -o \"" + output_file + "\""
 			
 			os.system(full_command)
 		else:
@@ -51,6 +54,7 @@ if __name__ == '__main__':
 
 	try:
 		parser.add_argument("-f", "--file", type=str, help="name of file to convert")
+		parser.add_argument("-i", "--info", help="show information about the input file, but do not convert it", action="store_true")
 		parser.add_argument("-s", "--script", help="generate conversion script", action="store_true")
 		args = parser.parse_args()
 	except Exception as ex:
@@ -65,7 +69,7 @@ if __name__ == '__main__':
 			sys.exit(0)
 
 		if args.file:
-			myRoku.ConvertFile(args.file)
+			myRoku.ConvertFile(args.file, args.info)
 			sys.exit(0)
 	except Exception as ex:
 		print(ex)
