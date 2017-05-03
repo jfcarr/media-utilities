@@ -18,6 +18,12 @@ Convert a single file like this:
 rokuconvert.py -f <input_file>
 ```
 
+Get info about an input file, but don't convert it, like this:
+
+```bash
+rokuconvert.py -f <input_file> -i
+```
+
 Generate a script (rconvert.sh) to convert all supported file formats in the current directory like this:
 
 ```bash
