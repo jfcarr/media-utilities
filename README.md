@@ -7,7 +7,7 @@ The only consistently supported file format (for video files on flash drives) on
 ## Requirements
 
 * Python 3
-* arparse package for Python 3 (`pip3 install argparse`)
+* argparse package for Python 3 (`pip3 install argparse`)
 * Latest version of [Handbrake](https://handbrake.fr/)
 
 ## Usage
