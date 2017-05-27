@@ -49,7 +49,7 @@ class CRoku:
 		fp1.close()
 		os.system("chmod u+x rconvert.sh")
 
-if __name__ == '__main__':
+def main(args):
 	parser = argparse.ArgumentParser()
 
 	try:
@@ -76,3 +76,6 @@ if __name__ == '__main__':
 		sys.exit(1)
 
 	print("Not sure what you want to do...")
+
+if __name__ == '__main__':
+	sys.exit(main(sys.argv))
