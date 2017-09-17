@@ -18,7 +18,10 @@ class CRoku:
 
 		# Split out the pieces of the input file name, and build the output file name.
 		input_file_name, input_file_extension = os.path.splitext(input_file)
-		output_file = input_file_name + ".mp4"
+		if input_file_extension == ".mp4":
+			output_file = input_file_name + "_new.mp4"
+		else:
+			output_file = input_file_name + ".mp4"
 
 		# Is the input file supported as a conversion target?
 		if any(x in input_file_extension for x in self.SupportedExtensions) or info_only:
@@ -61,7 +64,7 @@ def main(args):
 		print(ex)
 		sys.exit(1)
 
-	myRoku = CRoku('HandBrakeCLI','-Z "Very Fast 1080p30"', ['.avi','.mkv','.mov','.webm','.wmv'])
+	myRoku = CRoku('HandBrakeCLI','-Z "Very Fast 1080p30"', ['.avi','.mkv','.mov', '.mp4','.webm','.wmv'])
 
 	try:
 		if args.script:
