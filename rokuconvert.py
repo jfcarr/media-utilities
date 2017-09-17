@@ -46,7 +46,10 @@ class CRoku:
 			filenames = glob.glob('*' + extension)
 			for filename in filenames:
 				input_file_name, input_file_extension = os.path.splitext(filename)
-				output_file = input_file_name + ".mp4"
+				if input_file_extension == ".mp4":
+					output_file = input_file_name + "_new.mp4"
+				else:
+					output_file = input_file_name + ".mp4"
 				execCommand = self.ConverterName + " " + self.ConverterPreset + " -i \"" + filename + "\" -o \"" + output_file + "\""
 				print(execCommand, file=fp1)
 		fp1.close()
