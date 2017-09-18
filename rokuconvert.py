@@ -34,7 +34,7 @@ class CRoku:
 		else:
 			raise ValueError(input_file + " is not in a format that can be converted.")	
 
-	def GenerateScript(self):
+	def GenerateScript(self, reconvert):
 		# Open the script file for writing, and write out the crunch-bang line for bash
 		fp1 = open('rconvert.sh', 'w')
 		print("#!/bin/bash", file=fp1)
@@ -46,12 +46,15 @@ class CRoku:
 			filenames = glob.glob('*' + extension)
 			for filename in filenames:
 				input_file_name, input_file_extension = os.path.splitext(filename)
+				output_file = ""
 				if input_file_extension == ".mp4":
-					output_file = input_file_name + "_new.mp4"
+					if reconvert == True:
+						output_file = input_file_name + "_new.mp4"
 				else:
 					output_file = input_file_name + ".mp4"
-				execCommand = self.ConverterName + " " + self.ConverterPreset + " -i \"" + filename + "\" -o \"" + output_file + "\""
-				print(execCommand, file=fp1)
+				if not output_file == "":
+					execCommand = self.ConverterName + " " + self.ConverterPreset + " -i \"" + filename + "\" -o \"" + output_file + "\""
+					print(execCommand, file=fp1)
 		fp1.close()
 		os.system("chmod u+x rconvert.sh")
 
@@ -62,6 +65,7 @@ def main(args):
 		parser.add_argument("-f", "--file", type=str, help="name of file to convert")
 		parser.add_argument("-i", "--info", help="show information about the input file, but do not convert it", action="store_true")
 		parser.add_argument("-s", "--script", help="generate conversion script", action="store_true")
+		parser.add_argument("-sx", "--scriptnomp4", help="generate conversion script WITHOUT .mp4 reconversion", action="store_true")
 		args = parser.parse_args()
 	except Exception as ex:
 		print(ex)
@@ -71,7 +75,11 @@ def main(args):
 
 	try:
 		if args.script:
-			myRoku.GenerateScript()
+			myRoku.GenerateScript(True)
+			sys.exit(0)
+
+		if args.scriptnomp4:
+			myRoku.GenerateScript(False)
 			sys.exit(0)
 
 		if args.file:
