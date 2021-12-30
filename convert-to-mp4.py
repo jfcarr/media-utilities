@@ -5,7 +5,7 @@ import glob
 import os
 import sys
 
-class CRoku:
+class CConverter:
 	def __init__(self, _converterName, _converterPreset, _supported_extensions):
 		self.ConverterName = _converterName
 		self.ConverterPreset = _converterPreset
@@ -36,7 +36,7 @@ class CRoku:
 
 	def GenerateScript(self, reconvert):
 		# Open the script file for writing, and write out the crunch-bang line for bash
-		fp1 = open('rconvert.sh', 'w')
+		fp1 = open('video-convert.sh', 'w')
 		print("#!/bin/bash", file=fp1)
 		print("", file=fp1)
 
@@ -56,7 +56,7 @@ class CRoku:
 					execCommand = self.ConverterName + " " + self.ConverterPreset + " -i \"" + filename + "\" -o \"" + output_file + "\""
 					print(execCommand, file=fp1)
 		fp1.close()
-		os.system("chmod u+x rconvert.sh")
+		os.system("chmod u+x video-convert.sh")
 
 def main(args):
 	parser = argparse.ArgumentParser()
@@ -71,19 +71,19 @@ def main(args):
 		print(ex)
 		sys.exit(1)
 
-	myRoku = CRoku('HandBrakeCLI','-Z "Very Fast 1080p30"', ['.avi','.mkv','.mov', '.mp4','.webm','.wmv'])
+	myConverter = CConverter('HandBrakeCLI','-Z "Very Fast 1080p30"', ['.3gp','.flv','.avi','.AVI','m4v','.mkv','.mov', '.mp4','.mpg','.ogv','.webm','.wmv'])
 
 	try:
 		if args.script:
-			myRoku.GenerateScript(True)
+			myConverter.GenerateScript(True)
 			sys.exit(0)
 
 		if args.scriptnomp4:
-			myRoku.GenerateScript(False)
+			myConverter.GenerateScript(False)
 			sys.exit(0)
 
 		if args.file:
-			myRoku.ConvertFile(args.file, args.info)
+			myConverter.ConvertFile(args.file, args.info)
 			sys.exit(0)
 	except Exception as ex:
 		print(ex)
