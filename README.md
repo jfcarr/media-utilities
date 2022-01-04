@@ -33,3 +33,25 @@ Generate a script (video-convert.sh) to convert all supported file formats in th
 ```bash
 convert-to-mp4.py -s
 ```
+
+## slice-video
+
+### Description
+
+Extracts a slice of an input video.
+
+### Requirements
+
+* Python 3
+  * argparse package for Python 3 (`pip3 install argparse`)
+* ffmpeg
+
+### Usage
+
+Example, extracting a video slice from source.mp4, starting at 5 seconds into the input video, and ending at 27 seconds into the input video:
+
+```bash
+slice-video.py -f source.mp4 -s 00:00:05 -e 00:00:27
+```
+
+The output will be written to source_output.mp4.
