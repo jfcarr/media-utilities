@@ -8,11 +8,14 @@ from datetime import time
 import os
 import sys
 
-def convert(seconds):
+def convert_to_timestamp(seconds):
 	min, sec = divmod(seconds, 60)
 	hour, min = divmod(min, 60)
 
 	return "%02d:%02d:%02d" % (hour, min, sec)
+
+def total_seconds(hour, minute, second):
+	return int(hour)*60*60 + int(minute)*60 + int(second)
 
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser()
@@ -32,12 +35,12 @@ if __name__ == '__main__':
 
 	if args.end:
 		hour,minute,second = split_start.split(':')
-		start_seconds = int(hour)*60*60 + int(minute)*60 + int(second)
+		start_seconds = total_seconds(hour, minute, second)
 
 		hour,minute,second = args.end.split(':')
-		end_seconds = int(hour)*60*60 + int(minute)*60 + int(second)
+		end_seconds = total_seconds(hour, minute, second)
 
-		split_length = convert(end_seconds - start_seconds)
+		split_length = convert_to_timestamp(end_seconds - start_seconds)
 
 	length_arg = f"-t {split_length}" if split_length else ""
 	output_file = f"{os.path.splitext(args.file)[0]}_output{os.path.splitext(args.file)[1]}"
